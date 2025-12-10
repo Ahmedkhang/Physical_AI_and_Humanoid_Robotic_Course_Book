@@ -1,0 +1,137 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Dark gray theme variables */
+:root {
+  --ifm-color-primary: #4CAF50;
+  --ifm-color-primary-dark: #43A047;
+  --ifm-color-primary-darker: #388E3C;
+  --ifm-color-primary-darkest: #2E7D32;
+  --ifm-color-primary-light: #66BB6A;
+  --ifm-color-primary-lighter: #81C784;
+  --ifm-color-primary-lightest: #A5D6A7;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Custom dark gray theme variables */
+  --bg-dark-primary: #121212;
+  --bg-dark-secondary: #1a1a1a;
+  --bg-dark-tertiary: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --border-color: #444444;
+  --card-bg: #2d2d2d;
+  --hover-effect: #1f1f1f;
+}
+
+/* Dark mode theme */
+[data-theme='dark'] {
+  --ifm-color-primary: #4CAF50;
+  --ifm-color-primary-dark: #43A047;
+  --ifm-color-primary-darker: #388E3C;
+  --ifm-color-primary-darkest: #2E7D32;
+  --ifm-color-primary-light: #66BB6A;
+  --ifm-color-primary-lighter: #81C784;
+  --ifm-color-primary-lightest: #A5D6A7;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Background colors */
+  --ifm-background-color: var(--bg-dark-primary);
+  --ifm-background-surface-color: var(--bg-dark-secondary);
+
+  /* Text colors */
+  --ifm-color-content: var(--text-primary);
+  --ifm-color-content-secondary: var(--text-secondary);
+
+  /* Border colors */
+  --ifm-toc-border-color: var(--border-color);
+  --ifm-global-border-color: var(--border-color);
+
+  /* Card and surface colors */
+  --ifm-card-background-color: var(--card-bg);
+
+  /* Navbar and footer */
+  --ifm-navbar-background-color: var(--bg-dark-secondary);
+  --ifm-footer-background-color: var(--bg-dark-secondary);
+
+  /* Code block colors */
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode adjustments if needed */
+[data-theme='light'] {
+  --ifm-color-primary: #2196F3;
+  --ifm-color-primary-dark: #1E88E5;
+  --ifm-color-primary-darker: #1976D2;
+  --ifm-color-primary-darkest: #1565C0;
+  --ifm-color-primary-light: #42A5F5;
+  --ifm-color-primary-lighter: #64B5F6;
+  --ifm-color-primary-lightest: #90CAF9;
+}
+
+/* Additional styling for better dark theme */
+html[data-theme='dark'] {
+  background-color: var(--bg-dark-primary);
+  color: var(--text-primary);
+}
+
+html[data-theme='dark'] .navbar {
+  background-color: var(--bg-dark-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+html[data-theme='dark'] .footer {
+  background-color: var(--bg-dark-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+html[data-theme='dark'] .hero {
+  background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+  color: white;
+}
+
+html[data-theme='dark'] .card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+html[data-theme='dark'] .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme='dark'] .menu__list-item-collapsible,
+html[data-theme='dark'] .menu__link {
+  color: var(--text-primary) !important;
+}
+
+html[data-theme='dark'] .menu__link--active,
+html[data-theme='dark'] .menu__list-item-collapsible--active {
+  background-color: var(--hover-effect);
+}
+
+html[data-theme='dark'] .theme-doc-sidebar-menu {
+  background-color: var(--bg-dark-secondary);
+}
+
+html[data-theme='dark'] .table-of-contents__link {
+  color: var(--text-secondary) !important;
+}
+
+html[data-theme='dark'] .table-of-contents__link--active {
+  color: var(--ifm-color-primary) !important;
+}
+
+html[data-theme='dark'] .pagination-nav__link {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+html[data-theme='dark'] .pagination-nav__link:hover {
+  background-color: var(--hover-effect);
+}

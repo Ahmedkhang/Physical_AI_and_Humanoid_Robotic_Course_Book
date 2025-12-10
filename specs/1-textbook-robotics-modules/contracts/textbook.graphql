@@ -1,0 +1,132 @@
+type Module {
+  id: ID!
+  title: String!
+  description: String!
+  weekRange: String!
+  chapterCount: Int!
+  sortOrder: Int!
+  chapters: [Chapter!]!
+}
+
+type Chapter {
+  id: ID!
+  title: String!
+  moduleId: String!
+  week: Int!
+  difficulty: String!
+  estimatedHours: Int!
+  sortOrder: Int!
+  learningOutcomes: [String!]!
+  gherkinSpecs: [String!]!
+  theorySection: String!
+  coreConcepts: CoreConcepts!
+  handsOnLabs: [Lab!]!
+  simToRealNotes: String
+  mcqs: [MCQ!]!
+  furtherReading: [Reference!]!
+  sections: [Section!]!
+}
+
+type Section {
+  id: ID!
+  title: String!
+  chapterId: String!
+  sortOrder: Int!
+  subsections: [Subsection!]!
+}
+
+type Subsection {
+  id: ID!
+  title: String!
+  sectionId: String!
+  sortOrder: Int!
+  topics: [String!]!
+}
+
+type CoreConcepts {
+  id: ID!
+  chapterId: String!
+  mermaidDiagrams: [String!]!
+  tables: [Table!]!
+}
+
+type Table {
+  headers: [String!]!
+  rows: [[String!]!]!
+}
+
+type Lab {
+  id: ID!
+  title: String!
+  chapterId: String!
+  description: String!
+  steps: [String!]!
+  codeExamples: [CodeExample!]!
+  expectedOutcome: String!
+}
+
+type CodeExample {
+  language: String!
+  code: String!
+}
+
+type MCQ {
+  id: ID!
+  question: String!
+  chapterId: String!
+  options: [String!]!
+  correctAnswer: String!
+  explanation: String!
+}
+
+type Reference {
+  id: ID!
+  title: String!
+  url: String!
+  chapterId: String
+  description: String
+}
+
+type UserProfile {
+  id: ID!
+  languagePreference: String!
+  learningPace: String!
+  backgroundSurveyResults: BackgroundSurvey!
+  completedChapters: [String!]!
+  currentChapter: String
+}
+
+type BackgroundSurvey {
+  programmingExperience: String
+  roboticsBackground: String
+  learningGoals: [String!]
+}
+
+type SearchResult {
+  id: ID!
+  type: String!  # "chapter", "section", "subsection", etc.
+  title: String!
+  contentPreview: String!
+  relevanceScore: Float!
+}
+
+type Mutation {
+  updateUserProfile(id: ID!, languagePreference: String, learningPace: String): UserProfile
+  markChapterComplete(userId: ID!, chapterId: ID!): Boolean
+  saveUserSurvey(userId: ID!, surveyResults: SurveyInput!): UserProfile
+}
+
+type Query {
+  modules: [Module!]!
+  module(id: ID!): Module
+  chapter(id: ID!): Chapter
+  search(text: String!): [SearchResult!]!
+  userProfile(id: ID!): UserProfile
+  personalizationRecommendations(userId: ID!): [Chapter!]!
+}
+
+input SurveyInput {
+  programmingExperience: String
+  roboticsBackground: String
+  learningGoals: [String!]
+}

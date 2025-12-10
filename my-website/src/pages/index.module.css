@@ -1,0 +1,75 @@
+/* Dark theme styles for the homepage */
+
+:root {
+  --dark-bg-primary: #121212;
+  --dark-bg-secondary: #1a1a1a;
+  --dark-bg-tertiary: #2d2d2d;
+  --dark-text-primary: #ffffff;
+  --dark-text-secondary: #b3b3b3;
+  --dark-accent-primary: #2196f3;
+  --dark-accent-secondary: #4CAF50;
+  --dark-border: #444444;
+}
+
+html[data-theme='dark'] {
+  --ifm-background-color: var(--dark-bg-primary) !important;
+  --ifm-navbar-background-color: var(--dark-bg-secondary) !important;
+  --ifm-footer-background-color: var(--dark-bg-secondary) !important;
+  --ifm-card-background-color: var(--dark-bg-tertiary) !important;
+}
+
+html[data-theme='dark'] .hero {
+  background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+  color: white;
+}
+
+html[data-theme='dark'] .hero__title {
+  color: white;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+html[data-theme='dark'] .hero__subtitle {
+  color: #cccccc;
+  font-size: 1.2rem;
+}
+
+html[data-theme='dark'] .card {
+  background-color: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text-primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+html[data-theme='dark'] .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme='dark'] h1,
+html[data-theme='dark'] h2,
+html[data-theme='dark'] h3,
+html[data-theme='dark'] h4 {
+  color: var(--dark-text-primary);
+}
+
+html[data-theme='dark'] p,
+html[data-theme='dark'] span,
+html[data-theme='dark'] div {
+  color: var(--dark-text-secondary);
+}
+
+html[data-theme='dark'] a {
+  color: var(--dark-accent-primary);
+}
+
+html[data-theme='dark'] .button {
+  background-color: var(--dark-accent-primary);
+  border-color: var(--dark-accent-primary);
+  color: white;
+}
+
+html[data-theme='dark'] .button:hover {
+  background-color: #0d47a1;
+  border-color: #0d47a1;
+}
