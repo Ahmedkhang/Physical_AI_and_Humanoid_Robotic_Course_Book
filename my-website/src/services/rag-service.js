@@ -73,53 +73,60 @@
 // src/services/rag-service.js
 // src/services/rag-service.js
 
+// src/services/rag-service.js
+
 class RagService {
   constructor() {
-    // Safe way to get env var in Docusaurus/Vite — no import.meta needed
     this.apiBaseUrl = 
       import.meta.env?.VITE_RAG_API_URL ||
       (typeof process !== 'undefined' && process.env?.VITE_RAG_API_URL) ||
       'http://localhost:8000/api/ask';
 
     this.apiBaseUrl = this.apiBaseUrl.trim();
-    console.log('%c RAG Service Loaded → URL:', 'color: green; font-weight: bold', this.apiBaseUrl);
+    
+    // Debug log (only in browser)
+    if (typeof window !== 'undefined') {
+      console.log('%c RAG Service Loaded → URL:', 'color: green; font-weight: bold', this.apiBaseUrl);
+    }
   }
 
   async search(query) {
-    if (!query || query.trim() === '') return { content: 'Please enter a question.', sources: [] };
+    if (!query || query.trim() === '') {
+      return { content: 'Please enter a question.', sources: [] };
+    }
 
     try {
       const response = await fetch(this.apiBaseUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: query.trim() })
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Server error ${response.status}: ${errorText || response.statusText}`);
+        throw new Error(`Server error ${response.status}`);
       }
 
       const data = await response.json();
-
       return {
-        content: data.answer || "No relevant answer found in the book.",
+        content: data.answer || "No relevant answer found.",
         sources: data.sources || []
       };
     } catch (error) {
       console.error('RAG request failed:', error);
       return {
-        content: "Sorry, the textbook assistant is currently unavailable. Make sure the backend is running on port 8000.",
+        content: "The textbook assistant is temporarily unavailable.",
         sources: []
       };
     }
   }
 }
 
-// Create singleton and expose globally
+// Create singleton
 const ragService = new RagService();
-window.RagService = ragService;
+
+// Only set window.RagService in the browser (prevents SSR crash)
+if (typeof window !== 'undefined') {
+  window.RagService = ragService;
+}
 
 export default ragService;
