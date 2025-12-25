@@ -1,6 +1,6 @@
 // src/components/Chatbot.jsx
 import React, { useState, useRef, useEffect } from 'react';
-
+import '../services/rag-service.js';
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -36,8 +36,7 @@ const Chatbot = () => {
     setIsLoading(true);
     
     try {
-      // Simulate getting a response from our RAG service
-      // In a real implementation, this would call the backend RAG API
+      // Get response from our RAG service (now connects to backend API)
       const response = await getRagResponse(inputValue);
       
       // Add bot response
@@ -61,34 +60,26 @@ const Chatbot = () => {
   };
   
   // Function to get response from RAG service
-  const getRagResponse = (query) => {
-    return new Promise((resolve) => {
-      // Simulate API delay
-      setTimeout(() => {
-        // In a real implementation, we would:
-        // 1. Call window.RagService.search(query)
-        // 2. Use the results to generate a contextual response
-        // 3. Include citations to source materials
-        
-        // For this demo, we'll provide a mock implementation
-        if (window.RagService) {
-          // Perform search using our RAG service
-          const results = window.RagService.search(query, 3);
-          
-          if (results.length > 0 && results[0].similarity > 0.1) {
-            // Generate a response based on the search results
-            const topResult = results[0];
-            const response = `Based on the textbook content, I found relevant information:\n\n"${topResult.content.substring(0, 200)}..."\n\nThis information comes from chapter: ${topResult.docId}\n\n${results.length > 1 ? `I found ${results.length} relevant sections in total.` : ''}`;
-            
-            resolve(response);
-          } else {
-            resolve("I couldn't find specific information about that in the textbook. Could you try rephrasing your question or ask about a different topic?");
-          }
+  const getRagResponse = async (query) => {
+    try {
+      // Call the actual backend RAG API
+      if (window.RagService) {
+        const result = await window.RagService.search(query, 3);
+
+        if (result && result.content) {
+          // Format response based on API result
+          const response = `${result.content}`;
+          return response;
         } else {
-          resolve("The RAG service is not available. This feature will be fully functional when the application is running with the complete implementation.");
+          return "I couldn't find specific information about that in the textbook. Could you try rephrasing your question or ask about a different topic?";
         }
-      }, 1000); // Simulate network delay
-    });
+      } else {
+        return "The RAG service is not available. This feature will be fully functional when the application is running with the complete implementation.";
+      }
+    } catch (error) {
+      console.error('Error getting RAG response:', error);
+      throw new Error('Failed to get response from RAG service');
+    }
   };
   
   // Function to toggle chatbot open/close

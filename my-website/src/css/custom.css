@@ -135,3 +135,159 @@ html[data-theme='dark'] .pagination-nav__link {
 html[data-theme='dark'] .pagination-nav__link:hover {
   background-color: var(--hover-effect);
 }
+
+/* Responsive design for header */
+.navbar {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 996px) {
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .button {
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 1rem;
+  }
+  
+  .navbar__items--right {
+    margin-left: auto;
+  }
+  
+  .navbar__toggle {
+    display: inherit;
+  }
+  
+  .navbar__item {
+    display: none;
+  }
+  
+  .navbar__items--left,
+  .navbar__items--right {
+    min-width: 0;
+  }
+  
+  .navbar__item.dropdown {
+    display: inherit;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2rem !important;
+  }
+  
+  .hero__subtitle {
+    font-size: 1rem;
+  }
+  
+  .col--3 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .col--4 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .features {
+    padding: 1rem 0;
+  }
+  
+  .featureSvg {
+    height: 150px;
+    width: 150px;
+  }
+  
+  .navbar__brand {
+    order: 0;
+  }
+  
+  .navbar__toggle {
+    order: 1;
+  }
+  
+  .navbar__items--right {
+    order: 2;
+    width: 100%;
+    margin-left: 0;
+    padding-top: 0.5rem;
+  }
+}
+
+/* Visually hide the header/navbar while maintaining accessibility */
+.navbar {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Alternative approach: opacity and pointer-events */
+/*
+.navbar {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+}
+*/
+
+/* Adjust layout spacing since header is visually hidden */
+.navbar-sidebar-container {
+  height: auto !important;
+}
+
+.main-wrapper {
+  margin-top: 0 !important;
+}
+
+.container {
+  padding-top: 0 !important;
+}
+
+/* Adjust breadcrumbs positioning since navbar is visually hidden */
+.breadcrumbs-container {
+  margin-top: 0 !important;
+  padding-top: 0.5rem !important;
+}
+
+@media (max-width: 576px) {
+  .hero {
+    padding: 2rem 0;
+  }
+
+  .hero__title {
+    font-size: 1.5rem !important;
+  }
+
+  .hero__subtitle {
+    font-size: 0.9rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .navbar__title {
+    font-size: 1.2rem;
+  }
+
+  .navbar__items {
+    font-size: 0.9rem;
+  }
+}

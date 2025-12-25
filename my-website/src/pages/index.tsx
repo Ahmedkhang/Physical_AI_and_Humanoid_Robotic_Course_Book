@@ -28,7 +28,7 @@ function HomepageHeader() {
 // Module card component
 function ModuleCard({ title, description, link, color }: { title: string, description: string, link: string, color: string }) {
   return (
-    <div className="col col--3" style={{ padding: '10px' }}>
+    <div className="col col--3" style={{ padding: '10px', marginBottom: '1.5rem' }}>
       <Link to={link} className="card" style={{
         backgroundColor: '#2d2d2d',
         color: 'white',
@@ -40,7 +40,8 @@ function ModuleCard({ title, description, link, color }: { title: string, descri
         justifyContent: 'space-between',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         border: '1px solid #444',
-        height: '100%'
+        height: '100%',
+        textDecoration: 'none'
       }}>
         <div>
           <div style={{
@@ -56,8 +57,8 @@ function ModuleCard({ title, description, link, color }: { title: string, descri
           }}>
             {title.charAt(0)}
           </div>
-          <Heading as="h3" style={{ color: 'white' }}>{title}</Heading>
-          <p style={{ color: '#ccc', flex: 1 }}>{description}</p>
+          <Heading as="h3" style={{ color: 'white', margin: 0 }}>{title}</Heading>
+          <p style={{ color: '#ccc', flex: 1, margin: '1rem 0 0 0' }}>{description}</p>
         </div>
         <div style={{ marginTop: '1rem', color: '#4da6ff', fontWeight: 'bold' }}>
           Explore →
