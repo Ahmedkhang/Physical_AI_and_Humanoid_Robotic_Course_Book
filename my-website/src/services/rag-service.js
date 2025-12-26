@@ -75,24 +75,21 @@
 
 // src/services/rag-service.js
 
+// src/services/rag-service.js
+
 class RagService {
   constructor() {
-    this.apiBaseUrl = 
+    // Safely read VITE env var — works in build and runtime
+    this.apiBaseUrl =
       import.meta.env?.VITE_RAG_API_URL ||
-      (typeof process !== 'undefined' && process.env?.VITE_RAG_API_URL) ||
-      'http://localhost:8000/api/ask';
+      'https://ahmedur-book-backend.hf.space/api/ask';  // fallback to live URL
 
     this.apiBaseUrl = this.apiBaseUrl.trim();
-    
-    // Debug log (only in browser)
-    if (typeof window !== 'undefined') {
-      console.log('%c RAG Service Loaded → URL:', 'color: green; font-weight: bold', this.apiBaseUrl);
-    }
   }
 
   async search(query) {
-    if (!query || query.trim() === '') {
-      return { content: 'Please enter a question.', sources: [] };
+    if (!query?.trim()) {
+      return { content: 'Please ask a question about the course book.', sources: [] };
     }
 
     try {
@@ -103,18 +100,23 @@ class RagService {
       });
 
       if (!response.ok) {
-        throw new Error(`Server error ${response.status}`);
+        const text = await response.text();
+        throw new Error(`HTTP ${response.status}: ${text || response.statusText}`);
       }
 
       const data = await response.json();
+
       return {
-        content: data.answer || "No relevant answer found.",
+        content: data.answer || 'No relevant information found in the textbook.',
         sources: data.sources || []
       };
     } catch (error) {
-      console.error('RAG request failed:', error);
+      // Safe console.error — only runs in browser
+      if (typeof console !== 'undefined') {
+        console.error('RAG request failed:', error);
+      }
       return {
-        content: "The textbook assistant is temporarily unavailable.",
+        content: 'The textbook assistant is temporarily unavailable. Please try again later.',
         sources: []
       };
     }
@@ -124,9 +126,11 @@ class RagService {
 // Create singleton
 const ragService = new RagService();
 
-// Only set window.RagService in the browser (prevents SSR crash)
+// ONLY assign to window in browser environment
 if (typeof window !== 'undefined') {
   window.RagService = ragService;
+  // Optional debug log — safe because it's inside browser check
+  console.log('%cRAG Service Loaded → URL:', 'color: green; font-weight: bold', ragService.apiBaseUrl);
 }
 
 export default ragService;
